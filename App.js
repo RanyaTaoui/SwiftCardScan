@@ -1,11 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Info from './pages/info'; // Adjust the path based on your project structure
+import Acceuil from './pages/acceuil';
 
-export default function App() {
+const App = () => {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      {/* <Text>Welcome to My React Native App</Text> */}
+      <Acceuil /> 
     </View>
   );
 }
@@ -18,3 +20,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;
