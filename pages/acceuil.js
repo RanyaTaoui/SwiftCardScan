@@ -1,8 +1,36 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-
+import * as ImagePicker from 'expo-image-picker';
+import { useState, useEffect } from 'react';
 
 const Acceuil = () => {
+   const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    const requestMediaLibraryPermissions = async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, Permission denied!');
+        }
+      }
+    };
+    requestMediaLibraryPermissions();
+  }, []);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
   return (
     <View style={styles.container}>
         
@@ -23,13 +51,20 @@ const Acceuil = () => {
           <Text style={styles.maleText}>Camera</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.femaleContainer}>
+        <TouchableOpacity style={styles.femaleContainer} onPress={pickImage}>
           <Image
             style={styles.femaleImage}
             source={require('../assets/galerie.png')}
           />
           <Text style={styles.femaleText}>Galarie</Text>
         </TouchableOpacity>
+        {image &&
+            <Image
+           style={{ width: 200, height: 200, borderRadius: 100, marginBottom: 100, marginTop: 100 ,backgroundColor: '#d0fd3e'}}
+            source={{ uri: image }}
+          />
+        }
+        
       </View>
 
       
