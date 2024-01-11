@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     padding: 32,
     position: 'relative',
-    width: 300
+    width: '100%', // Take up the full width
+    height: '100%',
   },
   textContainer: {
     alignItems: 'center',
@@ -130,6 +131,7 @@ const styles = StyleSheet.create({
     marginBottom: 44,
     padding: 36,
     width: '100%',
+    height: 150
   },
   maleImage: {
     height: 48,
@@ -142,7 +144,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Open Sans, Source Sans Pro',
     fontSize: 18,
     fontWeight: '400',
-    lineHeight: 1.4,
+    // lineHeight: 1.4,
     marginRight: 5,
     textAlign: 'center',
     whiteSpace: 'nowrap',
@@ -154,6 +156,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     padding: 37,
     width: '100%',
+    height: 150
   },
   femaleImage: {
     height: 48,
@@ -167,7 +170,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Open Sans, Source Sans Pro',
     fontSize: 18,
     fontWeight: '400',
-    lineHeight: 1.4,
+    
     textAlign: 'center',
     whiteSpace: 'nowrap',
   },

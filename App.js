@@ -7,7 +7,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       {/* <Text>Welcome to My React Native App</Text> */}
-      <Acceuil /> 
+      <Info /> 
     </View>
   );
 }
