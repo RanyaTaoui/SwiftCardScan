@@ -72,7 +72,6 @@ const Info = () => {
       {/* <Image source={...} style={styles.image} /> */}
 
       {/* Add your Button component and handle submit function if needed */}
-
     </ScrollView>
     </GestureHandlerRootView>
   );
