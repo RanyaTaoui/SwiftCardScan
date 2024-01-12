@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { TextInput, Button, Colors } from 'react-native-paper';
 import DatePicker from 'react-native-datepicker';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Info = () => {
-  const [nom, setNom] = useState('');
-  const [prenom, setPrenom] = useState('');
-  const [dateNaissance, setDateNaissance] = useState('');
-  const [adresse, setAdresse] = useState('');
-  const [numerocarte, setNCarte] = useState('');
+  const [nom, setNom] = useState('ZAKARI');
+  const [prenom, setPrenom] = useState('ANAS');
+  const [dateNaissance, setDateNaissance] = useState('13/06/2000');
+  const [adresse, setAdresse] = useState('EL JADIDA');
+  const [numerocarte, setNCarte] = useState('MC290302');
 
   return (
+    <GestureHandlerRootView style={styles.container}>
     <ScrollView style={styles.container}>
         <View style={styles.header}>
         <Image
@@ -71,30 +72,35 @@ const Info = () => {
       {/* <Image source={...} style={styles.image} /> */}
 
       {/* Add your Button component and handle submit function if needed */}
-      {/* <Button mode="contained" onPress={handleSubmit} style={styles.button}>
-        Submit
-      </Button> */}
+
     </ScrollView>
+    </GestureHandlerRootView>
   );
 };
 
 const styles = StyleSheet.create({
     logo: {
-        width: 170, // Adjust the width as needed
-        height: 80, // Adjust the height as needed
-        marginLeft: 'auto',
-        marginRight: 'auto',
+      width: 170, // Adjust the width as needed
+      height: 80, // Adjust the height as needed
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginBottom: 50,
+      borderRadius: 30
       },
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'black', // Set the background color to black
+    backgroundColor: 'black',
+    width: '100%', // Take up the full width
+    height: '100%', 
   },
   inputContainer: {
     borderRadius: 25,
     backgroundColor: 'transparent',
     padding: 5,
     marginBottom: 10,
+    width: '100%', // Take up the full width
+    
   },
   image: {
     marginTop: -50,
