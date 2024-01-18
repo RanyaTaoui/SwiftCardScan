@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, Button, Alert, StyleSheet ,TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Modal from 'react-native-modal';
 import { CheckBox } from 'react-native-elements'; // Import CheckBox from react-native-elements
@@ -12,9 +12,14 @@ const Conditions = () => {
   const acceptConditions = () => {
     setConditions(true);
     setModalVisible(false);
-    navigation.navigate('Acceuil');
+    navigation.navigate('');
   };
 
+  const navi = () => {
+    setModalVisible(false);
+    navigation.navigate('Conditions');
+    
+  }
   const rejectConditions = () => {
     setConditions(false);
     setModalVisible(false);
@@ -25,11 +30,31 @@ const Conditions = () => {
     <Modal isVisible={isModalVisible}>
       <View style={styles.modalContainer}>
         <ScrollView>
-            <CheckBox
-            title="J'accepte que mes informations soient utilisées."
-            checked={conditions}
-            onPress={() => setConditions(!conditions)}
-          />
+       <CheckBox
+  title={
+    <>
+      <Text>
+        Dans le cadre de la conception de notre application, nous avons pris des
+        mesures proactives pour atténuer les risques juridiques liés à la gestion
+        des données personnelles de nos utilisateurs. Notre initiative comprend
+        la mise en œuvre d'une clause de consentement et d'un contrat
+        d'utilisation détaillé, intégrés au processus d'inscription et
+        d'utilisation de l'application. Ces mesures ont été élaborées en étroite
+        collaboration avec notre équipe juridique afin de garantir une
+        conformité rigoureuse aux réglementations sur la protection des données.
+       
+          <TouchableOpacity onPress={navi}>
+         <Text  style={{ fontWeight: 'bold', textDecorationLine: 'underline' }}>
+          Mesures pour les risques jur  idiques
+        </Text>
+      </TouchableOpacity>
+      </Text>
+    </>
+  }
+  checked={conditions}
+  onPress={() => setConditions(!conditions)}  
+/>
+
 
           <Button title="Accepter" onPress={acceptConditions} />
           {/* <Button title="Refuser" onPress={rejectConditions} /> */}
@@ -42,7 +67,7 @@ const Conditions = () => {
 const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: 'white',
-    padding: 20,
+    padding: 0,
     borderRadius: 10,
     margin: 20,
   },

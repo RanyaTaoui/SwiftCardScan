@@ -5,11 +5,11 @@ import DatePicker from 'react-native-datepicker';
 import { ScrollView, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Info = () => {
-  const [nom, setNom] = useState('ZAKARI');
-  const [prenom, setPrenom] = useState('ANAS');
-  const [dateNaissance, setDateNaissance] = useState('13/06/2000');
-  const [adresse, setAdresse] = useState('EL JADIDA');
-  const [numerocarte, setNCarte] = useState('MC290302');
+  const [nom, setNom] = useState('NAHIL');
+  const [prenom, setPrenom] = useState('HIND');
+  const [dateNaissance, setDateNaissance] = useState('31/08/2001');
+  const [adresse, setAdresse] = useState('BNI OUKIL FQUIH BEN SALAH');
+  const [numerocarte, setNCarte] = useState('ID113644');
 
   return (
     <GestureHandlerRootView style={styles.container}>
