@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -13,13 +12,11 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const navigation = useNavigation();
     
     const handleForgotPassword = () => {
       //code here someone
     };
     const handleCreateAccount = () => {
-      navigation.navigate('SignUp');
     };
     const handleSubmit = () => {
       
@@ -37,7 +34,7 @@ const Login = () => {
         <View style={styles.container}>
         <View style={styles.inputBorder}>
           
-          <Image style={styles.image} source={require("../assets/logo.png")} />
+          <Image style={styles.image} source={require("../assets/logo2.png")} />
           <View style={styles.inputContainer}>
             <Ionicons name="mail-outline" size={24} color="#D3B419" style={styles.icon} />
             <TextInput

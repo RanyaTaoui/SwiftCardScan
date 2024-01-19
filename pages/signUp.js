@@ -3,9 +3,6 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image,SafeAreaView
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation } from '@react-navigation/native';
-
-import {firebase} from '../Config'
 
 
 
@@ -35,7 +32,6 @@ const SignUp = () => {
  const displayDatepicker = () => {
     showMode('date');
  };
- const navigation = useNavigation();
 
  
   const handleSubmit = async(email,password,ConfirmPassword,username,phone,location,date)=>{
@@ -71,7 +67,7 @@ const SignUp = () => {
       <View style={styles.container}>
       <View style={styles.inputBorder}>
         
-        <Image style={styles.image} source={require("../assets/logo.png")} />
+        <Image style={styles.image} source={require("../assets/logo2.png")} />
         <View style={styles.inputContainer}>
           <Ionicons name="person-outline" size={24} color="#D3B419" style={styles.icon} />
           <TextInput
