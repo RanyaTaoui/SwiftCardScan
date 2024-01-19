@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { TextInput, Button, Colors } from 'react-native-paper';
-import DatePicker from 'react-native-datepicker';
 import { ScrollView, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Info = () => {
-<<<<<<< HEAD
-  const [nom, setNom] = useState('NAHIL');
-  const [prenom, setPrenom] = useState('HIND');
-  const [dateNaissance, setDateNaissance] = useState('31/08/2001');
-  const [adresse, setAdresse] = useState('BNI OUKIL FQUIH BEN SALAH');
-  const [numerocarte, setNCarte] = useState('ID113644');
-=======
-  const [nom, setNom] = useState('');
-  const [prenom, setPrenom] = useState('');
-  const [dateNaissance, setDateNaissance] = useState('');
-  const [adresse, setAdresse] = useState('');
-  const [numerocarte, setNCarte] = useState('');
->>>>>>> 259fa1d4fc0867a661e38d3da00dad570b2a59e8
+
+  const [nom, setNom] = useState('ZAKARI');
+  const [prenom, setPrenom] = useState('ANAS');
+  const [dateNaissance, setDateNaissance] = useState('13/06/2000');
+  const [adresse, setAdresse] = useState('EL JADIDA');
+  const [numerocarte, setNCarte] = useState('MC290302');
+
 
   return (
     <GestureHandlerRootView style={styles.container}>

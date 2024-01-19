@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "238259654844",
+    "project_id": "swiftcs-44ed9",
+    "storage_bucket": "swiftcs-44ed9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238259654844:android:a8b35faf91eec1a0af00b9",
+        "android_client_info": {
+          "package_name": "com.authenticationfirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwmssKkUTlqqbuZs1sIoZ8eBCO98uqSd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
