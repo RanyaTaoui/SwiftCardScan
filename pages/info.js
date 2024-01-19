@@ -5,12 +5,11 @@ import { ScrollView, GestureHandlerRootView } from 'react-native-gesture-handler
 
 const Info = () => {
 
-  const [nom, setNom] = useState('ZAKARI');
-  const [prenom, setPrenom] = useState('ANAS');
-  const [dateNaissance, setDateNaissance] = useState('13/06/2000');
-  const [adresse, setAdresse] = useState('EL JADIDA');
-  const [numerocarte, setNCarte] = useState('MC290302');
-
+  const [nom, setNom] = useState('');
+  const [prenom, setPrenom] = useState('');
+  const [dateNaissance, setDateNaissance] = useState('');
+  const [adresse, setAdresse] = useState('');
+  const [numerocarte, setNCarte] = useState('');
 
   return (
     <GestureHandlerRootView style={styles.container}>
