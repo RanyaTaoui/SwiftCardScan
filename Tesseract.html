@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tesseract OCR with OpenCV.js</title>
+  <script async src="https://docs.opencv.org/master/opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+  <script async src="https://tesseract.projectnaptha.com/1.0.10/tesseract.js" onload="onTesseractReady();" type="text/javascript"></script>
+</head>
+<body>
+  <input type="file" id="fileInput" accept="image/*">
+  <img id="inputImage" style="max-width: 100%"/>
+  <div id="output"></div>
+
+  <script>
+    let cvReady = false;
+    let tesseractReady = false;
+
+    function onOpenCvReady() {
+      cvReady = true;
+      console.log('OpenCV.js is ready');
+      startProcessing();
+    }
+
+    function onTesseractReady() {
+      tesseractReady = true;
+      console.log('Tesseract.js is ready');
+      startProcessing();
+    }
+
+    function startProcessing() {
+      if (cvReady && tesseractReady) {
+        document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+      }
+    }
+
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const imgElement = document.getElementById('inputImage');
+          imgElement.src = e.target.result;
+          imgElement.onload = function () {
+            processImage(imgElement);
+          };
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function processImage(imgElement) {
+      // Convertir l'image en niveaux de gris avec OpenCV.js
+      const src = cv.imread(imgElement);
+      const gray = new cv.Mat();
+      cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY);
+      cv.imshow(imgElement, gray);
+
+      // Extraire le texte avec Tesseract.js
+      Tesseract.recognize(
+        gray.data.buffer,
+        { lang: 'eng' }
+      ).then(({ data: { text } }) => {
+        document.getElementById('output').innerText = 'Texte extrait : ' + text;
+      });
+
+      // Libérer la mémoire
+      src.delete();
+      gray.delete();
+    }
+  </script>
+</body>
+</html>
