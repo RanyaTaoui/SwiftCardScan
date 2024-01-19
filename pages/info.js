@@ -5,11 +5,12 @@ import DatePicker from 'react-native-datepicker';
 import { ScrollView, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Info = () => {
-  const [nom, setNom] = useState('');
-  const [prenom, setPrenom] = useState('');
-  const [dateNaissance, setDateNaissance] = useState('');
-  const [adresse, setAdresse] = useState('');
-  const [numerocarte, setNCarte] = useState('');
+  const [nom, setNom] = useState('NAHIL');
+  const [prenom, setPrenom] = useState('HIND');
+  const [dateNaissance, setDateNaissance] = useState('31/08/2001');
+  const [adresse, setAdresse] = useState('BNI OUKIL FQUIH BEN SALAH');
+  const [numerocarte, setNCarte] = useState('ID113644');
+
 
   return (
     <GestureHandlerRootView style={styles.container}>
@@ -72,9 +73,6 @@ const Info = () => {
       {/* <Image source={...} style={styles.image} /> */}
 
       {/* Add your Button component and handle submit function if needed */}
-      <Button mode="contained" style={styles.button}>
-        Submit
-      </Button> 
     </ScrollView>
     </GestureHandlerRootView>
   );

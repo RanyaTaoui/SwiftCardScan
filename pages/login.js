@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -12,11 +13,13 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const navigation = useNavigation();
     
     const handleForgotPassword = () => {
       //code here someone
     };
     const handleCreateAccount = () => {
+      navigation.navigate('Profil');
     };
     const handleSubmit = () => {
       
@@ -81,6 +84,7 @@ const Login = () => {
     container: {
       flex: 1,
       padding: 20,
+      width:'100%',
       backgroundColor: '#212832',
     },
     inputBorder:{
@@ -91,12 +95,12 @@ const Login = () => {
     },
     
     image: {
-      marginTop: -50,
-      marginBottom: 0,
-      
-      width: 280,
-      height: 280,
-      alignSelf: 'center',
+      width: 170, // Adjust the width as needed
+        height: 80, // Adjust the height as needed
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: 50,
+        borderRadius: 30
       
     },
     inputContainer: {

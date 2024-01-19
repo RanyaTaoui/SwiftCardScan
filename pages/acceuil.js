@@ -1,80 +1,120 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { useState, useEffect } from 'react';
+  import React from 'react';
+  import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+  import * as ImagePicker from 'expo-image-picker';
+  import { useState, useEffect } from 'react';
+  import { Platform } from 'react-native';
+  import { useNavigation } from '@react-navigation/native';
+  import Conditions from './conditions';
 
-const Acceuil = () => {
-   const [image, setImage] = useState(null);
+  const Acceuil = () => {
+      const [image, setImage] = useState(null);
+        const [isModalVisible, setModalVisible] = useState(true); // Manage modal visibility
 
-  useEffect(() => {
-    const requestMediaLibraryPermissions = async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, Permission denied!');
-        }
-      }
-    };
-    requestMediaLibraryPermissions();
-  }, []);
+    // const Worker = createWorker();
+      const navigation = useNavigation(); // Import useNavigation
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    console.log(result);
 
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
-  };
-  return (
-    <View style={styles.container}>
-        
-      <View style={styles.header}>
-        <Image
-          source={require('../assets/logo2.png')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-      </View>
-
-      <View style={styles.gendersContainer}>
-        <TouchableOpacity style={styles.maleContainer}>
-          <Image
-            style={styles.maleImage}
-            source={require('../assets/camera.png')}
-          />
-          <Text style={styles.maleText}>Camera</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.femaleContainer} onPress={pickImage}>
-          <Image
-            style={styles.femaleImage}
-            source={require('../assets/galerie.png')}
-          />
-          <Text style={styles.femaleText}>Galarie</Text>
-        </TouchableOpacity>
-        {image &&
-            <Image
-           style={{ width: 200, height: 200, borderRadius: 100, marginBottom: 100, marginTop: 100 ,backgroundColor: '#d0fd3e'}}
-            source={{ uri: image }}
-          />
-        }
-        
-      </View>
-
+    useEffect(() => {
+  
+      requestMediaLibraryPermissions();
       
-    </View>
-   
-  );
-};
+      // convertImageToText();
+    }, [image]);
 
-const styles = StyleSheet.create({
-    logo: {
+        const requestMediaLibraryPermissions = async () => {
+        if (Platform.OS !== 'web') {
+          <Conditions />
+          const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (status !== 'granted') {
+            alert('Sorry, Permission denied!');
+          }else {
+            // Show conditions modal if permission is granted
+            setModalVisible(true);
+          }
+        }
+
+      };
+      const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+
+        if (!result.canceled) {
+          setImage(result.uri);
+             setTimeout(() => {
+              navigation.navigate('Info');
+            }, 1000);
+          //convertImageToText(image); // Pass the image URI to OCR function
+        }
+      };
+
+         const TakeImage = async () => {
+        let result = await ImagePicker.launchCameraAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+
+        if (!result.canceled) {
+          setImage(result.uri);
+             setTimeout(() => {
+              navigation.navigate('Info');
+            }, 1000);
+          //convertImageToText(image); // Pass the image URI to OCR function
+        }
+      };
+
+       const closeConditionsModal = () => {
+          setModalVisible(false);
+        };
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={require('../assets/logo2.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </View>
+
+        <View style={styles.gendersContainer}>
+          <TouchableOpacity style={styles.maleContainer} onPress={TakeImage}>
+            <Image
+              style={styles.maleImage}
+              source={require('../assets/camera.png')}
+            />
+            <Text style={styles.maleText}>Camera</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.femaleContainer} onPress={pickImage}>
+            <Image
+              style={styles.femaleImage}
+              source={require('../assets/galerie.png')}
+            />
+            <Text style={styles.femaleText}>Galarie</Text>
+          </TouchableOpacity>
+          {image &&
+              <Image
+             style={{ width: 200, height: 200, marginBottom: 100, marginTop: 100 ,backgroundColor: '#d0fd3e'}}
+              source={{ uri: image }}
+            />
+          }
+          
+        </View>
+
+              <Conditions isVisible={isModalVisible} onClose={closeConditionsModal} />
+
+      </View>
+    
+    );
+  };
+
+  const styles = StyleSheet.create({
+logo: {
         width: 170, // Adjust the width as needed
         height: 80, // Adjust the height as needed
         marginLeft: 'auto',
@@ -190,6 +230,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     whiteSpace: 'nowrap',
   },
-});
+  });
 
-export default Acceuil;
+  export default Acceuil;
+
+
+

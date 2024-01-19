@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image,SafeAreaView ,Button, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { ScrollView } from 'react-native-gesture-handler';
-import DateTimePicker from '@react-native-community/datetimepicker';
+
+import { useNavigation } from '@react-navigation/native';
+
+import { authentication, db } from "../firebase";
+import { createUserWithEmailAndPassword , getAuth} from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore"; 
 
 
 
@@ -10,51 +14,41 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 const SignUp = () => {
-  const [username, setUsername] = useState('');
+  
   //const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [ConfirmPassword, setConfirmPassword] = useState('');
-  const [location, setLocation] = useState('');
-  const [date, setDate] = useState(new Date());
-  const [displaymode, setMode] = useState('date');
-  const [isDisplayDate, setShow] = useState(false);
-  const changeSelectedDate = (event, selectedDate) => {
-  const currentDate = selectedDate || date;
-  setDate(currentDate);
-  setShow(false);
- };
+
+  
  const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
  };
- const displayDatepicker = () => {
-    showMode('date');
- };
+
+ const navigation = useNavigation();
+
+ const handleAccount = () => {
+  navigation.navigate('Login');
+};
 
  
-  const handleSubmit = async(email,password,ConfirmPassword,username,phone,location,date)=>{
-   // console log the parameters :
-    if(password == ConfirmPassword){
-    await firebase.auth().createUserWithEmailAndPassword(email,password)
-    .then(()=>{
-
-      firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid)
-      .set({
-        username,
-        password,
-        email,
-        phone,
-        location,
-        date,
-      })
-    })  .catch((err) => {
-          console.error(err); 
-      });
-        
-
-    
+const handleSubmit = async (email, password, ConfirmPassword) => {
+  // console log the parameters :
+  if (password == ConfirmPassword) {
+    await createUserWithEmailAndPassword(authentication, email, password)
+      .then(() => {
+        setDoc(
+          doc(db, 'users',getAuth().currentUser.uid),
+          {
+            password,
+            email,
+            
+          }
+        )
+      }).catch((err) => {
+        console.error(err);
+      }); 
 
   }
   else{
@@ -63,21 +57,12 @@ const SignUp = () => {
 }
 
   return (
-    <ScrollView>
+
       <View style={styles.container}>
       <View style={styles.inputBorder}>
         
         <Image style={styles.image} source={require("../assets/logo2.png")} />
-        <View style={styles.inputContainer}>
-          <Ionicons name="person-outline" size={24} color="#D3B419" style={styles.icon} />
-          <TextInput
-            style={styles.input}
-            placeholder="First name"
-            placeholderTextColor="#fff"
-            value={username}
-            onChangeText={setUsername}
-          />
-        </View>
+        
         <View style={styles.inputContainer}>
           <Ionicons name="mail-outline" size={24} color="#D3B419" style={styles.icon} />
           <TextInput
@@ -89,47 +74,8 @@ const SignUp = () => {
             onChangeText={setEmail}
           />
         </View>
-        <View style={styles.inputContainer}>
-          <Ionicons name="call-outline" size={24} color="#D3B419" style={styles.icon} />
-          <TextInput
-            style={styles.input}
-            placeholder="Phone Number"
-            placeholderTextColor="#fff"
-            value={phone}
-            onChangeText={setPhone}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <Ionicons name="location-outline" size={24} color="#D3B419" style={styles.icon} />
-          <TextInput
-            style={styles.input}
-            placeholder="Location"
-            placeholderTextColor="#fff"
-            value={location}
-            onChangeText={setLocation}
-          />
-        </View>
-        <View >
-        <SafeAreaView >
-      <View>
-         
-      <TouchableOpacity style={styles.inputContainer} onPress={displayDatepicker}>
-        <Ionicons name="calendar-outline" size={24} color="#D3B419" style={styles.icon} />
-        <Text id='DateId' style={styles.input}>Select Date of Birth</Text>
-     </TouchableOpacity>
-            </View>
-               {isDisplayDate && (
-                  <DateTimePicker
-                     testID="dateTimePicker"
-                     value={date}
-                     mode={displaymode}
-                     is24Hour={true}
-                     display="default"
-                     onChange={changeSelectedDate}
-            />
-         )}
-      </SafeAreaView>
-        </View>
+        
+        
         <View style={styles.inputContainer}>
           <Ionicons name="lock-closed-outline" size={24} color="#D3B419" style={styles.icon} />
           <TextInput
@@ -153,12 +99,12 @@ const SignUp = () => {
           />
         </View>
         
-        <TouchableOpacity style={styles.button}  onPress={()=>handleSubmit(email,password,ConfirmPassword,username,phone,location,date)}>
-          <Text style={styles.buttonText}>Sign Up</Text>
+        <TouchableOpacity style={styles.button}  onPress={()=>handleSubmit(email,password,ConfirmPassword)}>
+          <Text style={styles.buttonText} onPress={handleAccount}>Sign Up</Text>
         </TouchableOpacity>
       </View>
     </View>
-    </ScrollView>
+
   );
 };
 
@@ -176,12 +122,12 @@ const styles = StyleSheet.create({
   },
   
   image: {
-    marginTop: -50,
-    marginBottom: 0,
-    
-    width: 280,
-    height: 280,
-    alignSelf: 'center',
+    width: 170, // Adjust the width as needed
+        height: 80, // Adjust the height as needed
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: 50,
+        borderRadius: 30
     
   },
   inputContainer: {

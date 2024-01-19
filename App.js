@@ -4,33 +4,32 @@ import Info from './pages/info'; // Adjust the path based on your project struct
 import Acceuil from './pages/acceuil';
 import Login from './pages/login'
 import SignUp from './pages/signUp';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      {/* <Text>Welcome to My React Native App</Text> */}
-      <Login /> 
-    </View>
-    //  <NavigationContainer style={{ backgroundColor: '#212832'}}>
-    //     <Stack.Navigator initialRouteName="Homepage">
-       
-    //         <Stack.Screen name="Login"
-    //                         component={Login}
-    //                         options={{headerStyle: {backgroundColor: '#212832',},headerTintColor: '#fff', }}/>
-    //           <Stack.Screen name="SignUp"
-    //                         component={SignUp}
-    //                         options={{headerStyle: {backgroundColor: '#212832',},headerTintColor: '#fff', }}/>
-    //           <Stack.Screen name="Profil"
-    //                         component={Acceuil}
-    //                         options={{headerStyle: {backgroundColor: '#212832',},headerTintColor: '#fff', }}/>
-    //           <Stack.Screen name="Homepage"
-    //                         component={Info}
-    //                         options={{ headerStyle: { backgroundColor: '#212832' }, headerTintColor: '#fff' }}
-    //                         >      
-    //           </Stack.Screen>
-    //       </Stack.Navigator>
-    //   </NavigationContainer>
+     <NavigationContainer style={{ backgroundColor: '#212832'}}>
+        <Stack.Navigator initialRouteName="SignUp">
+
+            <Stack.Screen name="Login"
+                            component={Login}
+                            options={{headerStyle: {backgroundColor: '#212832',},headerTintColor: '#fff', }}/>
+              <Stack.Screen name="SignUp"
+                            component={SignUp}
+                            options={{headerStyle: {backgroundColor: '#212832',},headerTintColor: '#fff', }}/>
+              <Stack.Screen name="acceuil"
+                            component={Acceuil}
+                            options={{headerStyle: {backgroundColor: '#212832',},headerTintColor: '#fff', }}/>
+              <Stack.Screen name="info"
+                            component={Info}
+                            options={{ headerStyle: { backgroundColor: '#212832' }, headerTintColor: '#fff' }}
+
+              ></Stack.Screen>
+          </Stack.Navigator>
+      </NavigationContainer>
   );
 }
 
