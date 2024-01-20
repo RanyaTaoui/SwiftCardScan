@@ -5,11 +5,82 @@ import { ScrollView, GestureHandlerRootView } from 'react-native-gesture-handler
 
 const Info = () => {
 
-  const [nom, setNom] = useState('');
-  const [prenom, setPrenom] = useState('');
-  const [dateNaissance, setDateNaissance] = useState('');
-  const [adresse, setAdresse] = useState('');
-  const [numerocarte, setNCarte] = useState('');
+    const [data, setData] = useState(null);
+    const [nom, setNom] = useState('');
+    const [prenom, setPrenom] = useState('');
+    const [dateNaissance, setDateNaissance] = useState('');
+    const [adresse, setAdresse] = useState('');
+    const [numerocarte, setNCarte] = useState('');
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+      const fetchData = async () => {
+        try {
+          // Show loading state while fetching data
+          setLoading(true);
+
+          // Fetch initial data
+          const initialResponse = await axios.get('http://localhost:3000/api/GETImageData');
+          setData(initialResponse.data);
+
+          // Simulate asynchronous operation (e.g., processing the initial data)
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+
+          // Fetch additional related data based on the initial data
+          if (initialResponse.data.imageId) {
+            const relatedDataResponse = await axios.get(
+              http://localhost:3000/api/relatedData/${initialResponse.data.imageId}
+            );
+            setData((prevData) => ({
+              ...prevData,
+              relatedData: relatedDataResponse.data,
+            }));
+          }
+
+          // Simulate another asynchronous operation with a condition
+          if (initialResponse.data.shouldFetchMoreData) {
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            // Fetch more data or perform additional operations as needed
+            // ...
+
+            // Simulate an error scenario
+            if (Math.random() < 0.2) {
+              throw new Error('Simulated error during additional data fetch.');
+            }
+          }
+
+          // Reset loading state
+          setLoading(false);
+        } catch (error) {
+          // Handle different types of errors
+          if (axios.isAxiosError(error)) {
+            // Axios-specific error handling
+            if (error.response) {
+              console.error('Server responded with an error:', error.response.data);
+            } else if (error.request) {
+              console.error('No response received from the server:', error.request);
+            } else {
+              console.error('Error during the request setup:', error.message);
+            }
+          } else {
+            // Handle other types of errors
+            console.error('Unexpected error:', error);
+          }
+
+          // Update state to indicate an error
+          setError(true);
+        } finally {
+          console.log('Data fetching completed.');
+
+          // Additional cleanup or final actions
+          // ...
+
+          // Reset loading state
+          setLoading(false);
+        }
+      };
 
   return (
     <GestureHandlerRootView style={styles.container}>
@@ -130,3 +201,4 @@ const styles = StyleSheet.create({
 });
 
 export default Info;
+*
